@@ -97,7 +97,7 @@ leer_entrada(Oracion):-
        PalabrasMinusculas= PalabrasFinales, % Asigna el resultado a una variable
        write(PalabrasFinales),
        oracion(read(PalabrasFinales),[]).
-%Oracion debe estar en comilla simple. Ej: 'prolog terrorista'
+
 
 %Ejemplos de inputs
 %oracion([yo, deseo, llevar, un, estilo, de, vida, saludable],[])
