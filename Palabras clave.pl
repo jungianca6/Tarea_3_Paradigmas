@@ -151,8 +151,6 @@ recomendar_dieta(Condicion, MinCalorias, MaxCalorias, EjerMin, EjerMax, TiposAli
     imprimir_comidas(Comidas).
 
 
-
-
 % recomendar_dieta(diabetes, 1500, 1800, 0, 2, [keto, proteica],[mariscos, carne]).
 % recomendar_dieta(diabetes, 1650, 2100, 1, 3, [proteica,baja_en_grasas], [carne, alto_sodio]).
 % recomendar_dieta(diabetes, 1875, 2400, 2, 4, [baja_en_grasas, vegana],[alto_sodio, dulce]).

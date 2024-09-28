@@ -91,12 +91,16 @@ adjetivo([nutritivo | S], S).
 adjetivo([nutritiva | S], S).
 
 
+
 leer_entrada(Oracion) :-
     read_string(user, "\n", "\r", _, String),
     atom_string(Atom, String),
     atomic_list_concat(Oracion, ' ', Atom).
+
+
 %Oracion debe estar en comilla simple. Ej: 'prolog terrorista'
+%leer_entrada('prolog terrorista').
 
 %Ejemplos de inputs
 %oracion([yo, deseo, llevar, un, estilo, de, vida, saludable],[])
-%oracion([Me, han, diagnosticado, dislipidemia],[])
+%oracion([me, han, diagnosticado, dislipidemia],[])
