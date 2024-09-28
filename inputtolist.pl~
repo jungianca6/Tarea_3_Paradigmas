@@ -67,29 +67,10 @@ verbo([comer | S], S).
 verbo([intentar | S], S).
 verbo([deseo | S], S).
 verbo([han | S], S).
-verbo([diagnosticado | S], S).
-
-%Definiciones para los saludos
-saludo([hola | S], S).
-
-%Definiciones para los agradecimientos
-agradecimiento([gracias | S], S).
-agradecimiento([muchas, gracias | S], S).
-
-%Definiciones para las preposiciones
-preposicion([de | S], S).
-preposicion([una | S], S).
-preposicion([en | S], S).
-preposicion([con | S], S).
-preposicion([sobre | S], S).
-
-%Definiciones para los adjetivos
-adjetivo([saludable | S], S).
-adjetivo([rico | S], S).
-adjetivo([nutritivo | S], S).
-adjetivo([nutritiva | S], S).
+verbo([diagnosticado | leer_entrada(Oracion):-
+       atomic_list_concat(Palabras, ' ',Oracion),
+       maplist(string_lower,Palabras, PalabrasMinusculas),
+       PalabrasMinusculas= PalabrasFinales,
+       write(PalabrasFinales).
 
 
-%Ejemplos de inputs
-%oracion([yo, deseo, llevar, un, estilo, de, vida, saludable],[])
-%oracion([Me, han, diagnosticado, dislipidemia],[])
