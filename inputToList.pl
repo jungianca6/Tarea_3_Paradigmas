@@ -1,7 +1,6 @@
-leer_entrada(Oracion):-
-       atomic_list_concat(Palabras, ' ',Oracion), % Divide la oración en una lista de palabras
-       maplist(string_lower,Palabras, PalabrasMinusculas), % Convierte las palabras a minúsculas
-       PalabrasMinusculas= PalabrasFinales, % Asigna el resultado a una variable
-       write(PalabrasFinales).
+leer_entrada(List) :-
+    read_string(user, "\n", "\r", _, String),
+    atom_string(Atom, String),
+    atomic_list_concat(List, ' ', Atom).
 
 
