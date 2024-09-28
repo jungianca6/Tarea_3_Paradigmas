@@ -91,12 +91,10 @@ adjetivo([nutritivo | S], S).
 adjetivo([nutritiva | S], S).
 
 
-leer_entrada(Oracion):-
-       atomic_list_concat(Palabras, ' ',Oracion), % Divide la oración en una lista de palabras
-       maplist(downcase_atom,Palabras, PalabrasMinusculas), % Convierte las palabras a minúsculas
-       %PalabrasMinusculas= PalabrasFinales, % Asigna el resultado a una variable
-       write(PalabrasMinusculas),
-       oracion(PalabrasMinusculas,[]).
+leer_entrada(Oracion) :-
+    read_string(user, "\n", "\r", _, String),
+    atom_string(Atom, String),
+    atomic_list_concat(Oracion, ' ', Atom).
 %Oracion debe estar en comilla simple. Ej: 'prolog terrorista'
 
 %Ejemplos de inputs
