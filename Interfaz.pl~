@@ -1,0 +1,12 @@
+% Inicio del chat.
+
+:- ['BNF'].
+
+main:- inicio.
+
+%Respuesta para entrada esperada.
+inicio:-
+    leer_entrada(Entrada),
+    write('Hola').
+
+
