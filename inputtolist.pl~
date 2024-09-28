@@ -74,8 +74,22 @@ saludo([hola | S], S).
 
 %Definiciones para los agradecimientos
 agradecimiento([gracias | S], S).
-leer_entrada(Oracion) :-
-    atomic_list_concat(Palabras, ' ', Oracion),  % Divide la oración en una lista de palabras
-    maplist(string_lower, Palabras, PalabrasMinusculas), % Convierte las palabras a minúsculas
-    PalabrasMinusculas = PalabrasFinales,  % Asigna el resultado a una variable
-    write(PalabrasFinales). % Imprime la lista de palabras
+agradecimiento([muchas, gracias | S], S).
+
+%Definiciones para las preposiciones
+preposicion([de | S], S).
+preposicion([una | S], S).
+preposicion([en | S], S).
+preposicion([con | S], S).
+preposicion([sobre | S], S).
+
+%Definiciones para los adjetivos
+adjetivo([saludable | S], S).
+adjetivo([rico | S], S).
+adjetivo([nutritivo | S], S).
+adjetivo([nutritiva | S], S).
+
+
+%Ejemplos de inputs
+%oracion([yo, deseo, llevar, un, estilo, de, vida, saludable],[])
+%oracion([Me, han, diagnosticado, dislipidemia],[])
