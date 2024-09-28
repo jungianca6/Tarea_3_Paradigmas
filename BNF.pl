@@ -16,6 +16,9 @@ oracion(S0, S) :- agradecimiento(S0, S1), sintagma_verbal(S1, S).
 % Estructura con un verbo al principio
 oracion(S0, S) :- sintagma_verbal(S0, S).
 
+% Estructura con una palabra al principio
+oracion(S0, S) :- sintagma_nominal(S0, S).
+
 % Estructura con sintagma nominal primero
 oracion(S0, S) :- sintagma_nominal(S0, S1), sintagma_verbal(S1, S).
 oracion(S0, S) :- sintagma_nominal(S0, S1), sintagma_verbal(S1, S2), frase_preposicional(S2, S).  % Frase preposicional al final
@@ -30,6 +33,12 @@ sintagma_nominal(S0, S) :- determinante(S0, S1), adjetivo(S1, S2), nombre(S2, S)
 
 sintagma_nominal(S0, S) :- adjetivo(S0, S1), nombre(S1, S).  % Adjetivo + Nombre
 
+% Agregar números al sintagma nominal
+sintagma_nominal(S0, S) :- numero(S0, S).  % Solo Número
+sintagma_nominal(S0, S) :- numero(S0, S1), adjetivo(S1, S).  % Número + Adjetivo
+sintagma_nominal(S0, S) :- determinante(S0, S1), numero(S1, S).  % Determinante + Número
+
+
 %###################Estructuras para los sintagmas verbales###################
 sintagma_verbal(S0, S) :- verbo(S0, S).
 sintagma_verbal(S0, S) :- verbo(S0, S1), verbo(S1, S).
@@ -40,6 +49,10 @@ sintagma_verbal(S0, S) :- verbo(S0, S1), verbo(S1, S2), sintagma_nominal(S2, S).
 
 %###################Estructuras para frases preposicionales###################
 frase_preposicional(S0, S) :- preposicion(S0, S1), sintagma_nominal(S1, S).
+
+
+%###################Definición de números###################
+numero(S0, S) :- number(S0), S = [].
 
 %###################Definiciones para el BNF###################
 
@@ -58,6 +71,8 @@ nombre([estilo | S], S).
 nombre([yo | S], S).
 nombre([dislipidemia | S], S).
 nombre([me | S], S).
+nombre([diabetes | S], S).
+nombre([keto | S], S).
 
 %Definiciones para los verbos
 verbo([come | S], S).
@@ -69,6 +84,7 @@ verbo([intentar | S], S).
 verbo([deseo | S], S).
 verbo([han | S], S).
 verbo([diagnosticado | S], S).
+verbo([tengo | S], S).
 
 %Definiciones para los saludos
 saludo([hola | S], S).
@@ -91,12 +107,10 @@ adjetivo([nutritivo | S], S).
 adjetivo([nutritiva | S], S).
 
 
-
 leer_entrada(Oracion) :-
     read_string(user, "\n", "\r", _, String),
     atom_string(Atom, String),
     atomic_list_concat(Oracion, ' ', Atom).
-
 
 %Oracion debe estar en comilla simple. Ej: 'prolog terrorista'
 %leer_entrada('prolog terrorista').
