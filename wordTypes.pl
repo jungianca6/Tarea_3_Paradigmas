@@ -34,46 +34,39 @@ identificar_palabra(Lista_a_buscar, [Condicion, MinCalorias, MaxCalorias, EjerMi
 
 % Predicado para identificar enfermedad en la lista de entrada
 encontrar_enfermedad(Lista, Enfermedad) :-
-    (   member(Palabra, Lista),
-        enfermedad(Palabra) ->
-        Enfermedad = Palabra
-    ;   Enfermedad = ''  % Si no se encuentra, asigna espacio vacío
-    ).
+    member(Palabra, Lista),
+    enfermedad(Palabra),
+    Enfermedad = Palabra.
+encontrar_enfermedad(_, '').
 
 % Predicado para identificar calorías
 encontrar_calorias(Lista, MinCalorias, MaxCalorias) :-
-    (   member(Calorias, Lista),
-        number(Calorias),  % Asegúrate de que Calorias es un número
-        calorias(MinCalorias, MaxCalorias),
-        Calorias >= MinCalorias,
-        Calorias =< MaxCalorias ->
-        true
-    ;   MinCalorias = '', MaxCalorias = ''  % Asigna espacios vacíos si no se encuentra
-    ).
+    member(Calorias, Lista),
+    number(Calorias),  % Asegúrate de que Calorias es un número
+    calorias(MinCalorias, MaxCalorias),
+    Calorias >= MinCalorias,
+    Calorias =< MaxCalorias.
+encontrar_calorias(_, '', '').  % Asigna espacios vacíos si no se encuentra
 
 % Predicado para identificar el ejercicio semanal
 encontrar_ejercicio(Lista, MinEjer, MaxEjer) :-
-    (   member(Ejercicio, Lista),
-        number(Ejercicio),  % Asegúrate de que Ejercicio es un número
-        ejercicio_semanal(MinEjer, MaxEjer),
-        Ejercicio >= MinEjer,
-        Ejercicio =< MaxEjer ->
-        true
-    ;   MinEjer = '', MaxEjer = ''  % Asigna espacios vacíos si no se encuentra
-    ).
+    member(Ejercicio, Lista),
+    number(Ejercicio),  % Asegúrate de que Ejercicio es un número
+    ejercicio_semanal(MinEjer, MaxEjer),
+    Ejercicio >= MinEjer,
+    Ejercicio =< MaxEjer.
+encontrar_ejercicio(_, '', '').  % Asigna espacios vacíos si no se encuentra
 
 % Predicado para identificar el tipo de dieta
 encontrar_dieta(Lista, Dieta) :-
-    (   member(Palabra, Lista),
-        tipo_dieta(Palabra) ->
-        Dieta = Palabra
-    ;   Dieta = ''  % Si no se encuentra, asigna espacio vacío
-    ).
+    member(Palabra, Lista),
+    tipo_dieta(Palabra),
+    Dieta = Palabra.
+encontrar_dieta(_, '').  % Si no se encuentra, asigna espacio vacío
 
 % Predicado para identificar restricciones alimentarias
 encontrar_restricciones(Lista, Restriccion) :-
-    (   member(Palabra, Lista),
-        comidas_preferidas(Palabra) ->
-        Restriccion = Palabra
-    ;   Restriccion = ''  % Si no se encuentra, asigna espacio vacío
-    ).
+    member(Palabra, Lista),
+    comidas_preferidas(Palabra),
+    Restriccion = Palabra.
+encontrar_restricciones(_, '').  % Si no se encuentra, asigna espacio vacío
