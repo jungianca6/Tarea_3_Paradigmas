@@ -1,7 +1,5 @@
 :- ['BNF'], ['Palabras clave'], ['wordTypes'].
 
-
-
 % Inicio del chat.
 main :- inicio.
 
@@ -28,7 +26,7 @@ indentificar_palabras_clave(Entrada) :-
 
 % Segunda pregunta.
 segunda_pregunta :-
-    write('Gracias por su respuesta. Ahora, ¿Ha sido diagnosticado con alguna enfermedad?'), nl,
+    write('Gracias por su respuesta. Ahora, ¿podría decirme cuántas calorías consume al día?'), nl,
     leer_entrada(Entrada2),
     verificar_BNF2(Entrada2).
 
