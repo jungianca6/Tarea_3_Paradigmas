@@ -37,7 +37,7 @@ encontrar_enfermedad(Lista, Enfermedad) :-
     member(Palabra, Lista),
     enfermedad(Palabra),
     Enfermedad = Palabra.
-encontrar_enfermedad(_, '').
+encontrar_enfermedad(_, '_').
 
 % Predicado para identificar calorías
 encontrar_calorias(Lista, MinCalorias, MaxCalorias) :-
@@ -46,7 +46,7 @@ encontrar_calorias(Lista, MinCalorias, MaxCalorias) :-
     calorias(MinCalorias, MaxCalorias),
     Calorias >= MinCalorias,
     Calorias =< MaxCalorias.
-encontrar_calorias(_, '', '').  % Asigna espacios vacíos si no se encuentra
+encontrar_calorias(_, '_', '_').  % Asigna espacios vacíos si no se encuentra
 
 % Predicado para identificar el ejercicio semanal
 encontrar_ejercicio(Lista, MinEjer, MaxEjer) :-
@@ -55,18 +55,18 @@ encontrar_ejercicio(Lista, MinEjer, MaxEjer) :-
     ejercicio_semanal(MinEjer, MaxEjer),
     Ejercicio >= MinEjer,
     Ejercicio =< MaxEjer.
-encontrar_ejercicio(_, '', '').  % Asigna espacios vacíos si no se encuentra
+encontrar_ejercicio(_, '_', '_').  % Asigna espacios vacíos si no se encuentra
 
 % Predicado para identificar el tipo de dieta
 encontrar_dieta(Lista, Dieta) :-
     member(Palabra, Lista),
     tipo_dieta(Palabra),
     Dieta = Palabra.
-encontrar_dieta(_, '').  % Si no se encuentra, asigna espacio vacío
+encontrar_dieta(_, '_').  % Si no se encuentra, asigna espacio vacío
 
 % Predicado para identificar restricciones alimentarias
 encontrar_restricciones(Lista, Restriccion) :-
     member(Palabra, Lista),
     comidas_preferidas(Palabra),
     Restriccion = Palabra.
-encontrar_restricciones(_, '').  % Si no se encuentra, asigna espacio vacío
+encontrar_restricciones(_, '_').  % Si no se encuentra, asigna espacio vacío
