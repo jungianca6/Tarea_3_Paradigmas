@@ -160,9 +160,9 @@ recomendar_dieta(Condicion, MinCalorias, MaxCalorias, EjerMin, EjerMax, TipoAlim
     imprimir_comidas(Comidas).
 
 % Si no se encuentra ninguna dieta compatible, retornar un mensaje.
-recomendar_dieta(_, _, _, _, _, _, _) :-
+recomendar_dieta(Condicion, MinCalorias, MaxCalorias, EjerMin, EjerMax, TipoAlimentacion, Restriccion) :-
     write('No existe dieta que cumpla con los parámetros proporcionados.'), nl.
-    
+
 
 % Se le puede quitar el dato que se quiera y poner un _
 % recomendar_dieta(diabetes, 1500, 1800, 0, 2, [keto, proteica], [mariscos, carne]).
