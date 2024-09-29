@@ -116,11 +116,18 @@ fin :-
     \+ fin_imprimido, % Verificar si ya se ha impreso el resultado
     assert(fin_imprimido), % Marcar que ya se ha impreso
     opciones([Condicion, MinCalorias, MaxCalorias, EjerMin, EjerMax, TiposAlimentacion, Restricciones]),
-    write(Condicion), nl, write(MinCalorias), nl, write(MaxCalorias), nl ,write(EjerMin), nl, write(EjerMax), nl, write(TiposAlimentacion), nl,
-    recomendar_dieta(Condicion, MinCalorias, MaxCalorias, EjerMin, EjerMax, _ , _), !.
+    recomendar_dieta(Condicion, MinCalorias, MaxCalorias, EjerMin, EjerMax, TiposAlimentacion , Restricciones), !.
 
 fin :-
-    write('El resultado ya ha sido mostrado anteriormente.'), nl. % Mensaje si ya se imprimió
+    resetear_opciones,
+    write('Gracias por usar nutritec.'), nl. % Mensaje si ya se imprimió
+
+
+% Predicado para resetear la lista
+resetear_opciones :-
+    retract(opciones(_)), % Elimina la lista actual
+    assert(opciones(['_', '_', '_', '_', '_', '_', '_'])). % Establece la nueva lista.
+
 
 % Función fusionar, como antes
 fusionar([], [], []). % Caso base: dos listas vacías dan como resultado una lista vacía.

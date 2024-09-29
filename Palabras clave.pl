@@ -1,11 +1,28 @@
 % Base de conocimientos de dietas
 % Base de conocimientos de dietas con su descripcion de comidas
+
+dieta(keto_pro_diabetes_controlada, diabetes, 1500, 1800, 0, 2, keto, mariscos, [
+    desayuno('1 tortilla de huevo con espinacas y aguacate.', '1 taza de café negro sin azúcar.'),
+    merienda_manana('1 puñado de almendras.', '1 taza de té verde.'),
+    almuerzo('MARISCOS a la parrilla con ensalada de aguacate y pepino.', '1/2 taza de arroz integral.'),
+    merienda_tarde('1 yogurt natural bajo en azúcar.'),
+    cena('Salmón a la plancha con brócoli al vapor.', '1/3 taza de quinoa.')]).
+
+dieta(keto_pro_diabetes_controlada_2, diabetes, 1500, 1800, 0, 2, keto, carne, [
+    desayuno('1 tortilla de huevo con espinacas y aguacate.', '1 taza de café negro sin azúcar.'),
+    merienda_manana('1 puñado de almendras.', '1 taza de té verde.'),
+    almuerzo('CARNE DE VACA a la parrilla con ensalada de aguacate y pepino.', '1/2 taza de arroz integral.'),
+    merienda_tarde('1 yogurt natural bajo en azúcar.'),
+    cena('Salmón a la plancha con brócoli al vapor.', '1/3 taza de quinoa.')]).
+
+
 dieta(keto_pro_diabetes_controlada, diabetes, 1500, 1800, 0, 2, [keto, proteica], [mariscos, carne], [
     desayuno('1 tortilla de huevo con espinacas y aguacate.', '1 taza de café negro sin azúcar.'),
     merienda_manana('1 puñado de almendras.', '1 taza de té verde.'),
-    almuerzo('Pollo a la parrilla con ensalada de aguacate y pepino.', '1/2 taza de arroz integral.'),
+    almuerzo('CALLAO.', '1/2 taza de arroz integral.'),
     merienda_tarde('1 yogurt natural bajo en azúcar.'),
     cena('Salmón a la plancha con brócoli al vapor.', '1/3 taza de quinoa.')]).
+
 dieta(proteica_balanceada_diabetes, diabetes, 1650, 2100, 1, 3, [proteica, baja_en_grasas], [carne, alto_sodio], [
     desayuno('1 omelette de claras con espinacas y champiñones.', '1 rebanada de pan integral.'),
     merienda_manana('1 puñado de almendras.', '1 puñado de nueces.'),
@@ -133,25 +150,26 @@ imprimir_comidas([cena(Cena)|Resto]) :-
     imprimir_comidas(Resto).
 
 % Regla para encontrar la dieta adecuada según los parámetros (mínimo 3 parámetros)
-recomendar_dieta(Condicion, MinCalorias, MaxCalorias, EjerMin, EjerMax, TiposAlimentacion, Restricciones) :-
-    
+recomendar_dieta(Condicion, MinCalorias, MaxCalorias, EjerMin, EjerMax, TipoAlimentacion, Restriccion) :-
     % Si no se proporcionan calorías mínimas o máximas, se consideran todas
     (var(MinCalorias) -> MinCal = 0; MinCal = MinCalorias),
     (var(MaxCalorias) -> MaxCal = 9999; MaxCal = MaxCalorias),
     % Si no se proporcionan ejercicios mínimos o máximos, se consideran todos
     (var(EjerMin) -> MinEjer = 0; MinEjer = EjerMin),
     (var(EjerMax) -> MaxEjer = 9999; MaxEjer = EjerMax),
-    % Verificar los tipos de alimentación si están definidos
-    (var(TiposAlimentacion) ; tipos_alimentacion_compatibles(TiposAlimentacion, Alimentacion)),
-    % Verificar las restricciones si están definidas
-    (var(Restricciones) ; restricciones_compatibles(Restricciones, RestriccionAlimentos)),
- 
+
+    % Verificar los tipos de alimentación
+    (var(TipoAlimentacion) ; tipos_alimentacion_compatibles([TipoAlimentacion], Alimentacion)),
+    
+    % Verificar las restricciones
+    (var(Restriccion) ; restricciones_compatibles([Restriccion], RestriccionAlimentos)),
+
     % Búsqueda de la dieta
     dieta(Nombre, Condicion, MinCalDieta, MaxCalDieta, MinEjerDieta, MaxEjerDieta, Alimentacion, RestriccionAlimentos, Comidas),
     MinCalDieta =< MaxCal, MaxCalDieta >= MinCal,
     MinEjerDieta =< MaxEjer, MaxEjerDieta >= MinEjer,
-    
-    !,  % Corte, para cuando encuentre una solucion.
+
+    !,  % Corte, para cuando encuentre una solución.
     format('Dieta: ~w\n\n', [Nombre]),
     imprimir_comidas(Comidas).
 
@@ -179,7 +197,7 @@ recomendar_dieta(Condicion, MinCalorias, MaxCalorias, EjerMin, EjerMax, TiposAli
 
     
 % Se le puede quitar el dato que se quiera y poner un _
-% recomendar_dieta(diabetes, 1500, 1800, 0, 2, '', '').
+% recomendar_dieta(diabetes, 1500, 1800, 0, 2, _ , dulce).
 
 % recomendar_dieta(diabetes, 1500, 1800, 0, 2, [keto, proteica], [mariscos, carne]).
 % recomendar_dieta(diabetes, 1650, 2100, 1, 3, [proteica,baja_en_grasas], [carne, alto_sodio]).
