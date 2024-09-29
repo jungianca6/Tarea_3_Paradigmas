@@ -12,6 +12,7 @@ inicio :- inicio. % Si no se obtiene la respuesta esperada, el chat no avanza.
 
 % Definir una lista global para almacenar las palabras clave
 :- dynamic opciones/1.
+:- dynamic fin_imprimido/0. % Declarar el predicado dinámico para el estado de impresión
 opciones(['_', '_', '_', '_', '_', '_', '_']). % Lista inicial con espacios vacíos.
 
 verificar_BNF(Entrada) :-
@@ -34,7 +35,6 @@ actualizar_opciones(Resultados) :-
     fusionar(Resultados, ListaGlobal, NuevaLista), % Fusionar resultados
     retract(opciones(ListaGlobal)),         % Retirar la lista global actual
     assert(opciones(NuevaLista)).           % Guardar la nueva lista.
-
 
 % Segunda pregunta.
 segunda_pregunta :-
@@ -105,18 +105,22 @@ sexta_pregunta :-
 verificar_BNF6(Entrada6) :-
     oracion(Entrada6, []),
     indentificar_palabras_clave(Entrada6),  % Llamar a la función que prepara los parámetros para recomendar_dieta
-    recomendar_dieta(diabetes, 1500, 1800, 0, 2, _, _).
-    
+    fin. % Llama a la función fin
 
 verificar_BNF6(Entrada6) :- 
     write('Disculpe, no he entendido esa respuesta.'), nl,
     sexta_pregunta. % Volver a preguntar si no se entiende
 
+% fin.
+fin :-
+    \+ fin_imprimido, % Verificar si ya se ha impreso el resultado
+    assert(fin_imprimido), % Marcar que ya se ha impreso
+    opciones([Condicion, MinCalorias, MaxCalorias, EjerMin, EjerMax, TiposAlimentacion, Restricciones]),
+    write(Condicion), nl, write(MinCalorias), nl, write(MaxCalorias), nl ,write(EjerMin), nl, write(EjerMax), nl, write(TiposAlimentacion), nl,
+    recomendar_dieta(Condicion, MinCalorias, MaxCalorias, EjerMin, EjerMax, _ , _), !.
 
-
-
-
-
+fin :-
+    write('El resultado ya ha sido mostrado anteriormente.'), nl. % Mensaje si ya se imprimió
 
 % Función fusionar, como antes
 fusionar([], [], []). % Caso base: dos listas vacías dan como resultado una lista vacía.
@@ -131,4 +135,3 @@ fusionar([H1|T1], [H2|T2], [H1|L3]) :-
     H2 \= '_', 
     fusionar(T1, T2, L3).
 
-    
