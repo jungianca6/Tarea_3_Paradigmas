@@ -1,4 +1,4 @@
-:- ['BNF'], ['Palabras clave'], ['wordTypes'].
+:- ['BNF'], ['dietas'], ['palabrasClave'].
 
 % Inicio del chat.
 main :- inicio.
@@ -141,4 +141,3 @@ fusionar([H1|T1], [H2|T2], [H1|L3]) :-
     H1 \= '_', 
     H2 \= '_', 
     fusionar(T1, T2, L3).
-

@@ -1,20 +1,6 @@
 % Base de conocimientos de dietas
 % Base de conocimientos de dietas con su descripcion de comidas
 
-dieta(keto_pro_diabetes_controlada, diabetes, 1500, 1800, 0, 2, keto, mariscos, [
-    desayuno('1 tortilla de huevo con espinacas y aguacate.', '1 taza de café negro sin azúcar.'),
-    merienda_manana('1 puñado de almendras.', '1 taza de té verde.'),
-    almuerzo('MARISCOS a la parrilla con ensalada de aguacate y pepino.', '1/2 taza de arroz integral.'),
-    merienda_tarde('1 yogurt natural bajo en azúcar.'),
-    cena('Salmón a la plancha con brócoli al vapor.', '1/3 taza de quinoa.')]).
-
-dieta(keto_pro_diabetes_controlada_2, diabetes, 1500, 1800, 0, 2, keto, carne, [
-    desayuno('1 tortilla de huevo con espinacas y aguacate.', '1 taza de café negro sin azúcar.'),
-    merienda_manana('1 puñado de almendras.', '1 taza de té verde.'),
-    almuerzo('CARNE DE VACA a la parrilla con ensalada de aguacate y pepino.', '1/2 taza de arroz integral.'),
-    merienda_tarde('1 yogurt natural bajo en azúcar.'),
-    cena('Salmón a la plancha con brócoli al vapor.', '1/3 taza de quinoa.')]).
-
 
 dieta(keto_pro_diabetes_controlada, diabetes, 1500, 1800, 0, 2, [keto, proteica], [mariscos, carne], [
     desayuno('1 tortilla de huevo con espinacas y aguacate.', '1 taza de café negro sin azúcar.'),
@@ -173,6 +159,10 @@ recomendar_dieta(Condicion, MinCalorias, MaxCalorias, EjerMin, EjerMax, TipoAlim
     format('Dieta: ~w\n\n', [Nombre]),
     imprimir_comidas(Comidas).
 
+% Si no se encuentra ninguna dieta compatible, retornar un mensaje.
+recomendar_dieta(_, _, _, _, _, _, _) :-
+    write('No existe dieta que cumpla con los parámetros proporcionados.'), nl.
+    
 
 % Se le puede quitar el dato que se quiera y poner un _
 % recomendar_dieta(diabetes, 1500, 1800, 0, 2, [keto, proteica], [mariscos, carne]).
