@@ -16,7 +16,6 @@ opciones(['_', '_', '_', '_', '_', '_', '_']). % Lista inicial con espacios vac�
 
 verificar_BNF(Entrada) :-
     oracion(Entrada, []),
-    write(Entrada), nl,
     indentificar_palabras_clave(Entrada), % Identificar palabras clave
     segunda_pregunta. % Llama a la segunda pregunta después de procesar la primera
 
@@ -27,7 +26,6 @@ verificar_BNF(Entrada) :-
 % Actualizar la lista global con los resultados de identificar_palabras_clave
 indentificar_palabras_clave(Entrada) :- 
     identificar_palabra(Entrada, Resultados), % Llama a identificar_palabra,
-    write(Resultados), nl, % Imprime los resultados (opcional)
     actualizar_opciones(Resultados). % Actualiza las opciones globales
 
 % Fusionar los resultados con la lista global
@@ -35,12 +33,8 @@ actualizar_opciones(Resultados) :-
     opciones(ListaGlobal),                  % Obtener la lista global
     fusionar(Resultados, ListaGlobal, NuevaLista), % Fusionar resultados
     retract(opciones(ListaGlobal)),         % Retirar la lista global actual
-    assert(opciones(NuevaLista)),           % Guardar la nueva lista.
-    imprimir_lista(NuevaLista).             % Imprimir la lista actualizada.
+    assert(opciones(NuevaLista)).           % Guardar la nueva lista.
 
-% Imprimir la lista global
-imprimir_lista(Lista) :-
-    write('Lista de opciones actualizada: '), write(Lista), nl.
 
 % Segunda pregunta.
 segunda_pregunta :-
@@ -50,7 +44,6 @@ segunda_pregunta :-
 
 verificar_BNF2(Entrada2) :-
     oracion(Entrada2, []),
-    write(Entrada2), nl,
     indentificar_palabras_clave(Entrada2),
     tercera_pregunta. % Llama a la tercera pregunta
 
@@ -66,7 +59,6 @@ tercera_pregunta :-
 
 verificar_BNF3(Entrada3) :-
     oracion(Entrada3, []),
-    write(Entrada3), nl,
     indentificar_palabras_clave(Entrada3),
     cuarta_pregunta. % Llama a la cuarta pregunta
 
@@ -82,7 +74,6 @@ cuarta_pregunta :-
 
 verificar_BNF4(Entrada4) :-
     oracion(Entrada4, []),
-    write(Entrada4), nl,
     indentificar_palabras_clave(Entrada4),
     quinta_pregunta. % Llama a la quinta pregunta
 
@@ -98,7 +89,6 @@ quinta_pregunta :-
 
 verificar_BNF5(Entrada5) :-
     oracion(Entrada5, []),
-    write(Entrada5), nl,
     indentificar_palabras_clave(Entrada5),
     sexta_pregunta. % Llama a la sexta pregunta
 
@@ -114,12 +104,19 @@ sexta_pregunta :-
 
 verificar_BNF6(Entrada6) :-
     oracion(Entrada6, []),
-    write(Entrada6), nl,
-    indentificar_palabras_clave(Entrada6).
+    indentificar_palabras_clave(Entrada6),  % Llamar a la función que prepara los parámetros para recomendar_dieta
+    recomendar_dieta(diabetes, 1500, 1800, 0, 2, _, _).
+    
 
 verificar_BNF6(Entrada6) :- 
     write('Disculpe, no he entendido esa respuesta.'), nl,
     sexta_pregunta. % Volver a preguntar si no se entiende
+
+
+
+
+
+
 
 % Función fusionar, como antes
 fusionar([], [], []). % Caso base: dos listas vacías dan como resultado una lista vacía.
@@ -133,3 +130,5 @@ fusionar([H1|T1], [H2|T2], [H1|L3]) :-
     H1 \= '_', 
     H2 \= '_', 
     fusionar(T1, T2, L3).
+
+    
